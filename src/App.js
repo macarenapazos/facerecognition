@@ -10,6 +10,7 @@ import Rank from './components/Rank/Rank';
 import './App.css';
 
 const particlesOptions = {
+  //customize this to your liking
   particles: {
     number: {
       value: 30,
@@ -30,13 +31,12 @@ const initialState = {
   user: {
     id: '',
     name: '',
-    password: '',
     email: '',
     entries: 0,
     joined: ''
   }
-    
 }
+
 class App extends Component {
   constructor() {
     super();
@@ -80,13 +80,13 @@ class App extends Component {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-         input: this.state.input
+          input: this.state.input
         })
       })
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('https://lit-meadow-58465.herokuapp.com:3000/image', {
+          fetch('https://lit-meadow-58465.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -98,6 +98,7 @@ class App extends Component {
               this.setState(Object.assign(this.state.user, { entries: count}))
             })
             .catch(console.log)
+
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
@@ -106,7 +107,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({initialState})
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
